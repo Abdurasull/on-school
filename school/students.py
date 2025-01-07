@@ -1,4 +1,4 @@
-def register_student(students_data: dict[str, dict[str, str]]) -> None:
+def register_student(students_data: student[str, dict[str, str]]) -> None:
     """
     Registers a new student by collecting their name, email, and password, 
     and stores the information in the students_data dictionary.
@@ -7,7 +7,17 @@ def register_student(students_data: dict[str, dict[str, str]]) -> None:
         students_data (dict): A dictionary where student emails are keys 
                                and their details (name and password) are stored as values.
     """
-    pass
+    student['name'] = input("Enter your name: ")#student nomli dictionary ga "name" nomli key va unga foydalanuvchi kiritgan name ni kiritdik
+
+    # gmail va password ni alohida o`zgaruvchilarga olib oldik
+    student_email = input("Enter your email: ")
+    student_password = input("Enter your password: ")
+    
+    # student nomli dictionary ga pas_log nomli nestted dictionary yaratib oldik passwod va loginni saqlash uchun
+    student['pas_log'] = {}
+    student['pas_log']['log'] = student_email#pas_log nomli dictionary ga "log" nomli key va unga foydalanuvchi kiritgan loginni ni kiritdik
+    student['pas_log']['pass'] = student_password#pas_log nomli dictionary ga "pass" nomli key va unga foydalanuvchi kiritgan parolni ni kiritdik
+            
 
 def login_student(students_data: dict[str, dict[str, str]]) -> str | None:
     """
