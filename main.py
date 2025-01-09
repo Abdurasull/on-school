@@ -1,11 +1,7 @@
 from school import students, courses, grades
-
+import pprint
 def main():
-    """
-    Main function that drives the On-School system. It displays the main menu, 
-    handles user registration and login, and provides an interface for enrolled students 
-    to interact with courses and check grades.
-    """
+   
     # talabalarni ma`lumotlarini olish un bo`sh dictionary yaratib oldim
     student = {}
 
@@ -27,7 +23,7 @@ def main():
         
         # agar foydalanuvchi 1 ni tanlasa ro`yxatdan o`tishga o`tadi
         if choose_commond == 1:
-            new_student = students.register_student(student)
+            new_student = students.register_student(student, students_data)
 
             # yangi talabani bazaga qo`shamiz
             students_data.append(new_student)
@@ -53,7 +49,6 @@ def main():
                     user['course'].append(students.enroll_in_course(courses_data, students_data, user['pas_log']['log']))
                 
                 elif choose_commond_user == 3:
-                    print(user)
                     courses.view_courses(user['course'])
                 
                 elif choose_commond_user == 4:
@@ -66,7 +61,7 @@ def main():
                     exit()
                 else:
                     print("\nSiz mavjud bo`lmagan buyruq kiritdingiz iltimos tikshirib qaytadan kiriting! \n")
-                       
+                  
         elif choose_commond == 3:
         
             print("Darslarni qoldirishni hayolinga ham keltirma!!! ", "Ishlaringa omad!!", sep="\n")

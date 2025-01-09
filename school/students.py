@@ -1,20 +1,48 @@
-def register_student(student: dict[str, dict[str, str]]) -> None:
+import pprint
+
+def register_student(student: dict[str, dict[str, str]], student_date: list) -> None:
 
     #student nomli dictionary ga "name" nomli key va unga foydalanuvchi kiritgan name ni kiritdik
-    student['name'] = input("Enter your name: ")
-
-    # student nomli dictionaryga 'courses' nomli list ham qo`shib qo`yaman, bu erda ta`labalarning yozilgan kurslari saqlanadi
-    student['course'] = []
+    student_name = input("Enter your name: ")
 
     # gmail va password ni alohida o`zgaruvchilarga olib oldik
     student_email = input("Enter your email: ")
     student_password = input("Enter your password: ")
     
+    
     # student nomli dictionary ga pas_log nomli nestted dictionary yaratib oldik passwod va loginni saqlash uchun
-    student['pas_log'] = {}
-    student['pas_log']['log'] = student_email#pas_log nomli dictionary ga "log" nomli key va unga foydalanuvchi kiritgan loginni ni kiritdik
-    student['pas_log']['pass'] = student_password#pas_log nomli dictionary ga "pass" nomli key va unga foydalanuvchi kiritgan parolni ni kiritdik
-   
+    while True:
+        count_log = student_email.count('@')
+        check_log = student_email.find('@')
+        length_pass = len(student_password)
+        
+        if count_log != 1 or check_log == 0 or check_log == len(student_email) - 1:
+            print("gmail kiritishda hatolik bor iltimos tekshirib qaytadan kiriting \n'@' bilgisi qo`yilmagan yoki 2 va undan ortiq qo`yilgan bo`lishi mn\nyoki gmailning boshiga yoki oxiriga bu bilgini qo`ygan bo`lishi mn") 
+            student_email = input("Enter your email: ")
+            
+        elif length_pass < 8:
+            print("Password 8 ta bilgidan uzun bo`lishi kk")
+            student_password = input("Enter your password: ")
+            
+        else:
+            check_log_count = 0
+            for user in range(len(student_date)):
+                if student_date[user]['pas_log']['log'] == student_email:
+                    print("bunday gmailda foydalanuvchi ruyxatdan o`tgan, iltimos boshqa gmaildan foydalanib ko`ring")
+                    student_email = input("Enter your email: ")
+                    check_log_count +=1
+                    break
+            if check_log_count:
+                pass
+            else:
+                break
+    student = {
+            'name': student_name, 
+            'course': [], 
+            'pas_log': {'log': student_email, 
+                        'pass': student_password
+                        }}
+    # pprint.pprint(student)
     return student
 
 # paroli va logini bo`yicha bazada borligini aniqlovchi function
@@ -41,6 +69,7 @@ def enroll_in_course(
     students_data: dict[str, dict[str, list[str]]], 
     student_email: str
 ) -> None:
+ 
     # kursni tanlash uchun nommir tanlash
     courses_number = int(input("Select a course number to enroll: "))
 
